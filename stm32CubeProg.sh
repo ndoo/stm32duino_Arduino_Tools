@@ -84,15 +84,11 @@ case "${UNAME_OS}" in
     if ! command -v $STM32CP_CLI >/dev/null 2>&1; then
       aborting
     fi
-    if ! command -v /usr/local/opt/gnu-getopt/bin/getopt >/dev/null 2>&1; then
-      if ! command -v /opt/homebrew/opt/gnu-getopt/bin/getopt >/dev/null 2>&1; then
-        echo "Warning: long options not supported due to getopt from FreeBSD usage."
-        GNU_GETOPT=n
-      else
-        export PATH="/opt/homebrew/opt/gnu-getopt/bin":"$PATH"
-      fi
+    if ! command -v $(brew --prefix)/opt/gnu-getopt/bin/getopt >/dev/null 2>&1; then
+      echo "Warning: long options not supported due to getopt from FreeBSD usage."
+      GNU_GETOPT=n
     else
-      export PATH="/usr/local/opt/gnu-getopt/bin":"$PATH"
+      export PATH="$(brew --prefix)/opt/gnu-getopt/bin":"$PATH"
     fi
     ;;
   Windows*)
